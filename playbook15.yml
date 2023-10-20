@@ -1,0 +1,37 @@
+---
+- name: Configuring Apache2
+  hosts: all
+  tasks:  
+   - name: Installing Apache2
+     apt:  
+      name:  apache2
+      state: present
+      update_cache: yes
+     notify: Check URL response 
+
+   - name: Edit the index.html file
+     copy:  
+       content: "Welcome to My IntelliqIT-Sudhakar1"
+       dest: /var/www/html/index.html
+     notify: Restart apache
+
+
+  handlers:  
+   - name: Restart apache
+     service:  
+       name: apache2
+       state: restarted
+   - name: Check URL response
+     uri:
+       url: "{{item}}"
+       status_code: 200
+     with_items:  
+      - http://172.31.12.36
+      - http://172.31.1.213
+...        
+
+     
+
+         
+...          
+          

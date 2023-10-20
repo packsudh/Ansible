@@ -1,0 +1,16 @@
+---
+- name: Install/Uninstall S/W
+  hosts: all
+  vars:   
+   - a: tomcat9
+   - b: present
+   - c: yes
+
+  tasks:  
+    - name: Install S/W
+      apt:  
+       name: "{{a}}" 
+       state: "{{b}}"
+       update_cache: "{{c}}"
+
+...         
